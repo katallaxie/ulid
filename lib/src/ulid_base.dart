@@ -22,3 +22,16 @@ class Ulid {
   @override
   int get hashCode => _bytes.join().hashCode;
 }
+
+// https://en.wikipedia.org/wiki/Base32
+String _hex16 = '0123456789abcdef';
+String _crockfordBase32 = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'.toLowerCase();
+
+List<String> _hex = List<String>.generate(16, (int i) => _hex16[i]);
+List<String> _base32 =
+    List<String>.generate(32, (int i) => _crockfordBase32[i]);
+
+List<int> _lowercaseCodes =
+    List<int>.generate(32, (int i) => _crockfordBase32[i].codeUnits.first);
+List<int> _base32Decode =
+    List<int>.generate(256, (int i) => _lowercaseCodes.indexOf(i));
